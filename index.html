@@ -8,85 +8,106 @@
     /* Basic reset */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: linear-gradient(135deg, #2c3e50, #4ca1af);
+      background: #f4f4f4; /* Light gray background */
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      font-family: Arial, sans-serif;
-      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Modern system font stack */
+      color: #333; /* Dark gray text */
     }
     .container {
       text-align: center;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+      background: #ffffff; /* White container */
+      padding: 2.5rem 3rem; /* Increased padding */
+      border-radius: 8px; /* Softer border radius */
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Subtle shadow */
+      width: 100%;
+      max-width: 400px; /* Max width for container */
     }
     h1 {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem; /* More space below heading */
+      font-size: 1.8rem;
+      font-weight: 600; /* Slightly bolder */
+      color: #222; /* Even darker for heading */
     }
     .input-group {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem; /* More space */
+      display: flex; /* Align input and button */
     }
     input[type="text"] {
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1rem;
       font-size: 1rem;
-      border: none;
-      border-radius: 0.5rem;
+      border: 1px solid #ddd; /* Light border */
+      border-radius: 6px;
       margin-right: 0.5rem;
+      flex-grow: 1; /* Input takes available space */
+      color: #333;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    input[type="text"]::placeholder {
+      color: #aaa;
+    }
+    input[type="text"]:focus {
+      border-color: #555; /* Darker border on focus */
+      box-shadow: 0 0 0 3px rgba(50, 50, 90, 0.1); /* Subtle focus ring */
+      outline: none;
     }
     button {
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1.5rem;
       font-size: 1rem;
       border: none;
-      border-radius: 0.5rem;
+      border-radius: 6px;
       cursor: pointer;
-      background: #e74c3c;
+      background: #333; /* Dark gray button */
       color: #fff;
+      font-weight: 500;
       transition: background 0.3s ease;
     }
     button:hover {
-      background: #c0392b;
+      background: #555; /* Slightly lighter on hover */
     }
     .heart {
-      width: 100px;
-      height: 90px;
-      background: red;
+      width: 80px; /* Slightly smaller for a cleaner look */
+      height: 72px; /* Adjusted proportionally */
+      background: #333; /* Solid dark gray/black heart */
       position: relative;
-      transform: rotate(-45deg);
+      transform: rotate(-45deg) scale(0.9); /* Initial smaller scale and rotation */
+      margin: 1.5rem auto 0; /* Centering and top margin */
       opacity: 0;
-      transition: opacity 1s ease-in;
+      transition: opacity 0.6s ease-in, transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smoother pop-in transition */
     }
     .heart::before,
     .heart::after {
       content: "";
-      width: 100px;
-      height: 90px;
-      background: red;
+      width: 80px;
+      height: 72px;
+      background: #333; /* Match heart color */
       position: absolute;
       border-radius: 50%;
     }
     .heart::before {
-      top: -50px;
+      top: -40px; /* Adjusted for new size */
       left: 0;
     }
     .heart::after {
       top: 0;
-      left: 50px;
+      left: 40px; /* Adjusted for new size */
     }
     .heart.visible {
       opacity: 1;
-      animation: beat 1s infinite ease-in-out;
+      transform: rotate(-45deg) scale(1); /* Scale to normal size */
+      animation: beat 1.2s infinite ease-in-out 0.5s; /* Slower, more subtle beat, delayed start */
     }
     @keyframes beat {
       0%, 100% { transform: scale(1) rotate(-45deg); }
-      50% { transform: scale(1.2) rotate(-45deg); }
+      50% { transform: scale(1.1) rotate(-45deg); } /* Less aggressive scaling */
     }
     .error {
-      color: #e74c3c;
-      margin-top: 0.5rem;
+      color: #c0392b; /* Kept red for error, but a more muted red */
+      margin-top: 1rem; /* More space above error */
       font-size: 0.9rem;
+      font-weight: 500;
       display: none;
     }
   </style>
@@ -121,7 +142,10 @@
     });
 
     input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') button.click();
+      if (e.key === 'Enter') {
+        e.preventDefault(); // Prevent form submission if it were in a form
+        button.click();
+      }
     });
   </script>
 </body>
